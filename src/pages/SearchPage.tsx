@@ -1,11 +1,10 @@
-// src/pages/SearchPage.tsx
 import React, { useState } from 'react';
-import { useAppDispatch } from '../app/hooks'; // Make sure you have the hook set up to use dispatch with TypeScript
-import { searchUsers } from '../features/userSearchSlice';
+import { useAppDispatch } from '../app/hooks';
+import { searchUsers, clearSearchResults  } from '../features/userSearchSlice';
 import styled from 'styled-components';
 import { useAppSelector } from '../app/hooks';
 import { UserCard } from '../components/UserCard';
-import './SearchPage.scss'; // Assuming you have SCSS setup for global styles
+import './SearchPage.scss';
 
 const SearchInput = styled.input`
   padding: 0.5em;
@@ -20,6 +19,19 @@ const SearchButton = styled.button`
   padding: 0.5em 1em;
   color: white;
   background-color: palevioletred;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #d45d79;
+  }
+`;
+
+const ClearButton = styled.button`
+  padding: 0.5em 1em;
+  color: white;
+  background-color: #874e61;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -45,6 +57,11 @@ export const SearchPage = () => {
     }
   };
 
+  const handleClear = () => {
+    dispatch(clearSearchResults());
+    setUsername('');
+  };
+
   return (
     <div className="search-page">
       <h1>GitHub User Search</h1>
@@ -56,6 +73,7 @@ export const SearchPage = () => {
           placeholder="Enter GitHub username"
         />
         <SearchButton onClick={handleSearch}>Search</SearchButton>
+        <ClearButton onClick={handleClear}>Clear</ClearButton>
       </div>
       <CardsContainer>
       {users.map((user) => (

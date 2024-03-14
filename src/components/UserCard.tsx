@@ -43,7 +43,7 @@ export const UserCard = ({ user }) => {
           {status === 'succeeded' &&
             repositories.map((repo) => (
               <RepoItem key={repo.id}>
-                <strong>{repo.name}</strong> - {repo.description}
+                <strong>{repo.name}</strong> - {repo.description} - {repo.stargazers_count}
               </RepoItem>
             ))}
           {status === 'failed' && <p>Failed to load repositories.</p>}

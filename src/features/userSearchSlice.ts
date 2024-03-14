@@ -24,7 +24,6 @@ export const searchUsers = createAsyncThunk(
   'users/search',
   async (username: string) => {
     const response = await fetchUsers(username);
-    // Assuming the API returns an array of users
     return response.items;
   }
 );
@@ -32,7 +31,13 @@ export const searchUsers = createAsyncThunk(
 const userSearchSlice = createSlice({
   name: 'userSearch',
   initialState,
-  reducers: {},
+  reducers: {
+    clearSearchResults: (state) => {
+      state.users = [];
+      state.status = 'idle';
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(searchUsers.pending, (state) => {
@@ -52,5 +57,6 @@ const userSearchSlice = createSlice({
 export const selectUsers = (state: RootState) => state.userSearch.users;
 export const selectUsersStatus = (state: RootState) => state.userSearch.status;
 export const selectUsersError = (state: RootState) => state.userSearch.error;
+export const { clearSearchResults } = userSearchSlice.actions;
 
 export default userSearchSlice.reducer;
