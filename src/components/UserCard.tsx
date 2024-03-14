@@ -1,31 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { getRepositories, selectUserRepositories, selectUserRepositoriesStatus } from '../features/repositoriesSlice';
-import styled from 'styled-components';
+import {
+  getRepositories,
+  selectUserRepositories,
+  selectUserRepositoriesLoading,
+  selectUserRepositoriesStatus,
+} from '../features/repositories/repositoriesSlice';
+import {
+  CardWrapper,
+  CardTest,
+  CardTestHeader,
+  RepoWrapper,
+  RepoContainer,
+  RepoHeader,
+  RepoTitle,
+  StarGazersHolder,
+  RepoDescription,
+  StyledIcon,
+} from './styles';
+import Angle from '../assets/angle.svg';
+import Star from '../assets/star.svg';
+import type { User } from '../features/types';
 
-const Card = styled.div`
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-`;
+interface UserCardProps {
+  user: User;
+}
 
-const RepoList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin-top: 1rem;
-`;
-
-const RepoItem = styled.li`
-  margin-bottom: 0.5rem;
-`;
-
-export const UserCard = ({ user }) => {
+export const UserCard = ({ user }: UserCardProps) => {
   const [expanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
-  const repositories = useAppSelector((state) => selectUserRepositories(state, user.login));
-  const status = useAppSelector((state) => selectUserRepositoriesStatus(state, user.login));
+  const repositories = useAppSelector((state) =>
+    selectUserRepositories(state, user.login)
+  );
+  const status = useAppSelector((state) =>
+    selectUserRepositoriesStatus(state, user.login)
+  );
+
+  const isLoading = useAppSelector((state) =>
+    selectUserRepositoriesLoading(state, user.login)
+  );
 
   const handleClick = () => {
     if (!expanded) {
@@ -35,20 +48,39 @@ export const UserCard = ({ user }) => {
   };
 
   return (
-    <Card onClick={handleClick}>
-      <h2>{user.login}</h2>
-      {expanded && (
-        <RepoList>
-          {status === 'loading' && <p>Loading...</p>}
-          {status === 'succeeded' &&
-            repositories.map((repo) => (
-              <RepoItem key={repo.id}>
-                <strong>{repo.name}</strong> - {repo.description} - {repo.stargazers_count}
-              </RepoItem>
-            ))}
-          {status === 'failed' && <p>Failed to load repositories.</p>}
-        </RepoList>
-      )}
-    </Card>
+    <CardWrapper>
+      <CardTest expanded={expanded}>
+        <CardTestHeader onClick={handleClick}>
+          <span>{user.login}</span>
+          <StyledIcon
+            expanded={expanded}
+            width="25px"
+            height="25px"
+            src={Angle}
+          />
+        </CardTestHeader>
+
+        <RepoWrapper>
+          {isLoading && <p>Loading...</p>}
+          {status === 'succeeded' && !isLoading && repositories.length > 0
+            ? repositories.map((repo) => (
+                <RepoContainer key={repo.id}>
+                  <RepoHeader>
+                    <RepoTitle>{repo.name}</RepoTitle>
+                    <StarGazersHolder>
+                      <span>{repo.stargazers_count}</span>
+                      <img width="20px" height="20px" src={Star} alt="star" />
+                    </StarGazersHolder>
+                  </RepoHeader>
+                  <RepoDescription>{repo.description}</RepoDescription>
+                </RepoContainer>
+              ))
+            : !isLoading &&
+              repositories.length === 0 && (
+                <p>There are no repos for this user.</p>
+              )}
+        </RepoWrapper>
+      </CardTest>
+    </CardWrapper>
   );
 };
