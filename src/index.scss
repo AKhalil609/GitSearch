@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -47,11 +49,16 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  background: #ffffff;
+  background: #26fbd4;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  // outline: 4px auto -webkit-focus-ring-color;
+}
+
+input:focus,
+input:focus-visible {
+  outline: 1px auto #26fbd4;
 }
 
 ::-webkit-scrollbar {
@@ -80,4 +87,13 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+:root {
+  --primary-btn-color: #26fbd4;
+  --main-bg-color: #151920;
+  --secondary-bg-color: #1e252e;
+  --tertiary-bg-color: #323d4a;
+  --quaternary-bg-color: #6b7f98;
+  --quinary-bg-color: #cdd6e1;
 }
