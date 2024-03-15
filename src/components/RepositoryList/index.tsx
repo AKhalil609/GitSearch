@@ -15,15 +15,15 @@ import {
   selectUserRepositoriesLoading,
 } from '../../features/repositories/selectors';
 import { memo } from 'react';
-import { Status } from '../../features/types';
+import { Repository, Status } from '../../features/types';
+
+interface RepositoriesListProps {
+  userLogin: string;
+  expanded: boolean;
+}
 
 interface RepoItemProps {
-  repo: {
-    id: number;
-    name: string;
-    stargazers_count: number;
-    description: string;
-  };
+  repo: Repository;
 }
 
 const RepoItem = memo(({ repo }: RepoItemProps) => (
@@ -38,11 +38,6 @@ const RepoItem = memo(({ repo }: RepoItemProps) => (
     <RepoDescription>{repo.description}</RepoDescription>
   </RepoContainer>
 ));
-
-interface RepositoriesListProps {
-  userLogin: string;
-  expanded: boolean;
-}
 
 const RepositoriesList = ({ userLogin, expanded }: RepositoriesListProps) => {
   const repositories = useAppSelector((state) =>

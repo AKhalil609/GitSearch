@@ -1,7 +1,24 @@
-import type { RootState } from '../../app/store';
+import { createSelector } from 'reselect';
+import { RootState } from '../../app/store';
 
-export const selectUsers = (state: RootState) => state.userSearch.users;
-export const selectUsersStatus = (state: RootState) => state.userSearch.status;
-export const selectUsersError = (state: RootState) => state.userSearch.error;
-export const selectUsersLoading = (state: RootState) =>
-  state.userSearch.status === 'loading';
+const getUserSearchState = (state: RootState) => state.userSearch;
+
+export const selectUsers = createSelector(
+  [getUserSearchState],
+  (userSearch) => userSearch.users
+);
+
+export const selectUsersStatus = createSelector(
+  [getUserSearchState],
+  (userSearch) => userSearch.status
+);
+
+export const selectUsersError = createSelector(
+  [getUserSearchState],
+  (userSearch) => userSearch.error
+);
+
+export const selectUsersLoading = createSelector(
+  [selectUsersStatus],
+  (status) => status === 'loading'
+);
