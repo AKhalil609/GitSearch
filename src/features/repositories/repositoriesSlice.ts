@@ -1,37 +1,7 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  type PayloadAction,
-} from '@reduxjs/toolkit';
-import type { RootState } from '../../app/store';
-import { fetchRepositories } from '../../api/githubApi';
-import {
-  type UserRepositories,
-  Status,
-  type Repository,
-  type rejectedPayload,
-} from '../types';
-
-const initialState: UserRepositories = {};
-
-export const getRepositories = createAsyncThunk(
-  'repositories/get',
-  async (username: string, { rejectWithValue }) => {
-    try {
-      const response = await fetchRepositories(username);
-      return { username, repositories: response };
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return rejectWithValue({ username, error: error.message });
-      } else {
-        return rejectWithValue({
-          username,
-          error: 'An unexpected error occurred.',
-        });
-      }
-    }
-  }
-);
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { Status, type Repository } from '../types';
+import { initialState } from './initialState';
+import { getRepositories } from './thunks';
 
 const repositoriesSlice = createSlice({
   name: 'repositories',
@@ -73,33 +43,21 @@ const repositoriesSlice = createSlice({
         }
       )
       .addCase(getRepositories.rejected, (state, action) => {
-        const { username, error } = action.payload as rejectedPayload;
+        const { arg: username } = action.meta; // Get username from meta.arg
+        const error = action.error.message; // Get error message
+
         if (!state[username]) {
           state[username] = {
             repositories: [],
             status: Status.Failed,
-            error: null,
+            error: error || null,
           };
+        } else {
+          state[username].status = Status.Failed;
+          state[username].error = error || null;
         }
-        state[username].status = Status.Failed;
-        state[username].error = error;
       });
   },
 });
-
-export const selectUserRepositories = (state: RootState, username: string) =>
-  state.repositories[username]?.repositories || [];
-export const selectUserRepositoriesStatus = (
-  state: RootState,
-  username: string
-) => state.repositories[username]?.status || Status.Idle;
-export const selectUserRepositoriesLoading = (
-  state: RootState,
-  username: string
-) => state.repositories[username]?.status === Status.Loading;
-export const selectUserRepositoriesError = (
-  state: RootState,
-  username: string
-) => state.repositories[username]?.error || null;
 
 export default repositoriesSlice.reducer;

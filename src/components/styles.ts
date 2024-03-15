@@ -4,7 +4,7 @@ interface CardProps {
   expanded: boolean;
 }
 
-export const CardsContainerTest = styled.div`
+export const CardsContainer = styled.div`
   width: 100%;
   display: flex;
   grid-gap: 8px;
@@ -23,8 +23,14 @@ export const CardsContainerTest = styled.div`
 
 export const CardTest = styled.div<CardProps>`
   flex-grow: 1;
-  background: #fff;
-  color: #000;
+  background: #323d4a;
+  color: rgba(205, 214, 225, 1);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0px;
+  text-decoration: none;
+  text-transform: none;
   border-radius: 8px;
   box-sizing: border-box;
   padding: 12px;
@@ -39,7 +45,6 @@ export const CardTest = styled.div<CardProps>`
   @media (max-width: 768px) {
     height: ${(props) => (props.expanded ? '600px' : '45px')};
     max-height: 600px;
-    /* min-width: 100%; */
   }
 `;
 

@@ -2,18 +2,16 @@ import { useState, type KeyboardEvent } from 'react';
 import {
   InputWrapper,
   StyledInput,
-  StyledIcon,
   SearchIconContainer,
   ClearIconContainer,
   SearchInputContainer,
+  StyledSVG,
 } from './styles';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  searchUsers,
-  clearSearchResults,
-} from '../../features/userSearch/userSearchSlice';
+import { clearSearchResults } from '../../features/userSearch/userSearchSlice';
 import mgGlass from '../../assets/mg-glass.svg';
 import Cancel from '../../assets/cancel.svg';
+import { searchUsers } from '../../features/userSearch/thunks';
 
 interface SearchInputProps {
   placeholder: string;
@@ -26,7 +24,9 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
   const handleSearch = () => {
     if (username) {
       dispatch(searchUsers(username));
+      return;
     }
+    dispatch(clearSearchResults());
   };
 
   const handleClear = () => {
@@ -50,12 +50,12 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
           onKeyDown={handleKeyDown}
         />
         <SearchIconContainer onClick={handleSearch}>
-          <StyledIcon src={mgGlass} />
+          <StyledSVG color="#6b7f98" src={mgGlass} />
         </SearchIconContainer>
       </InputWrapper>
       {(username.length > 0 || users.length > 0) && (
         <ClearIconContainer onClick={handleClear}>
-          <StyledIcon src={Cancel} />
+          <StyledSVG color="#1e252e" src={Cancel} />
         </ClearIconContainer>
       )}
     </SearchInputContainer>

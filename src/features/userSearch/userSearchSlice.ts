@@ -1,33 +1,7 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  type PayloadAction,
-} from '@reduxjs/toolkit';
-import type { RootState } from '../../app/store';
-import { fetchUsers } from '../../api/githubApi';
-import type { User, UserSearchState } from '../types';
-
-const initialState: UserSearchState = {
-  users: [],
-  status: 'idle',
-  error: null,
-};
-
-export const searchUsers = createAsyncThunk(
-  'users/search',
-  async (username: string, { rejectWithValue }) => {
-    try {
-      const response = await fetchUsers(username);
-      return response.items;
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message);
-      } else {
-        return rejectWithValue('An unexpected error occurred.');
-      }
-    }
-  }
-);
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { User } from '../types';
+import { initialState } from './initialState';
+import { searchUsers } from './thunks';
 
 const userSearchSlice = createSlice({
   name: 'userSearch',
@@ -58,11 +32,6 @@ const userSearchSlice = createSlice({
   },
 });
 
-export const selectUsers = (state: RootState) => state.userSearch.users;
-export const selectUsersStatus = (state: RootState) => state.userSearch.status;
-export const selectUsersError = (state: RootState) => state.userSearch.error;
-export const selectUsersLoading = (state: RootState) =>
-  state.userSearch.status === 'loading';
 export const { clearSearchResults } = userSearchSlice.actions;
 
 export default userSearchSlice.reducer;

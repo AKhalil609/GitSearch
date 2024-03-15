@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
-  getRepositories,
   selectUserRepositories,
   selectUserRepositoriesLoading,
   selectUserRepositoriesStatus,
-} from '../features/repositories/repositoriesSlice';
+} from '../features/repositories/selectors';
 import {
   CardWrapper,
   CardTest,
@@ -21,6 +20,7 @@ import {
 import Angle from '../assets/angle.svg';
 import Star from '../assets/star.svg';
 import type { User } from '../features/types';
+import { getRepositories } from '../features/repositories/thunks';
 
 interface UserCardProps {
   user: User;
