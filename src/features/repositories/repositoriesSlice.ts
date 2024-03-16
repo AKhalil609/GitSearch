@@ -43,8 +43,8 @@ const repositoriesSlice = createSlice({
         }
       )
       .addCase(getRepositories.rejected, (state, action) => {
-        const { arg: username } = action.meta; // Get username from meta.arg
-        const error = action.error.message; // Get error message
+        const { arg: username } = action.meta;
+        const error = action.error.message;
 
         if (!state[username]) {
           state[username] = {

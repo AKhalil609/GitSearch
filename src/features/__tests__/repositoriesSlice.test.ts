@@ -3,7 +3,7 @@ import repositoriesReducer from '../repositories/repositoriesSlice';
 import { Status } from '../types';
 import { initialState } from '../repositories/initialState';
 import { getRepositories } from '../repositories/thunks';
-import { RootState } from '../../app/store';
+import type { RootState } from '../../app/store';
 
 describe('repositories slice', () => {
   let store: ReturnType<typeof configureStore>;

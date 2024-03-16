@@ -49,12 +49,20 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
           placeholder={placeholder}
           onKeyDown={handleKeyDown}
         />
-        <SearchIconContainer onClick={handleSearch}>
+        <SearchIconContainer
+          aria-label="search"
+          role="button"
+          onClick={handleSearch}
+        >
           <StyledSVG color="#6b7f98" src={mgGlass} />
         </SearchIconContainer>
       </InputWrapper>
-      {(username.length > 0 || users.length > 0) && (
-        <ClearIconContainer onClick={handleClear}>
+      {(username?.length > 0 || users?.length > 0) && (
+        <ClearIconContainer
+          aria-label="clear"
+          role="button"
+          onClick={handleClear}
+        >
           <StyledSVG color="#1e252e" src={Cancel} />
         </ClearIconContainer>
       )}
