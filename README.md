@@ -1,30 +1,88 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Redux Toolkit Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a setup that builds upon the minimal React, TypeScript, and Vite template by integrating Redux Toolkit for state management. It includes features for searching and displaying GitHub user repositories, demonstrating how to use React with Redux in TypeScript. The project showcases dynamic search functionality that interacts with GitHub's API to fetch and display user repositories and implements infinite scrolling for an enhanced user experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React with TypeScript**: Leverages React alongside TypeScript for component building, state, and props management with type safety.
+- **Vite for Development**: Uses Vite for a fast development server and efficient bundling.
+- **Redux Toolkit for State Management**: Employs Redux Toolkit for managing application state, including asynchronous thunks for API calls.
+- **Dynamic User Repository Search**: Features a user repository search functionality, showcasing asynchronous actions and Redux state management.
+- **Infinite Scrolling**: Implements dynamic loading of more repositories as the user scrolls, improving the UX.
 
-## Expanding the ESLint configuration
+## Plugins and Tools
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This project uses two official Vite plugins for React development:
 
-- Configure the top-level `parserOptions` property like this:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md): Utilizes Babel for Fast Refresh.
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc): Uses SWC for Fast Refresh.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Getting Started
+
+Follow these steps to set up and run the project:
+
+1. **Clone the Repository**
+
+```bash
+git clone git@github.com:AKhalil609/GitSearch.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Install Dependencies**
+
+```bash
+npm install
+```
+
+3. **Start the Development Server**
+
+```bash
+npm run dev
+```
+
+Open http://localhost:5173 in your browser to see the application.
+
+4. **Build for Production**
+
+```bash
+npm run build
+```
+
+## Project Structure Overview
+
+```
+└── 📁src
+    └── 📁api
+        └── githubApi.ts
+    └── 📁app
+        └── hooks.ts
+        └── store.ts
+    └── App.tsx
+    └── 📁assets
+    └── 📁components
+        └── 📁RepositoriesList
+            └── index.tsx
+            └── styles.ts
+        └── 📁SearchInput
+            └── index.tsx
+            └── styles.ts
+        └── 📁UserCard
+            └── index.tsx
+            └── styles.ts
+    └── 📁features
+        └── 📁repositories
+            └── initialState.ts
+            └── repositoriesSlice.ts
+            └── selectors.ts
+            └── thunks.ts
+        └── types.ts
+        └── 📁userSearch
+            └── initialState.ts
+            └── selectors.ts
+            └── thunks.ts
+            └── userSearchSlice.ts
+    └── index.scss
+    └── main.tsx
+    └── 📁pages
+        └── SearchPage.tsx
+        └── styles.ts
+```

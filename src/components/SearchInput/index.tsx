@@ -17,6 +17,20 @@ interface SearchInputProps {
   placeholder: string;
 }
 
+/**
+ * The `SearchInput` component provides a UI for the user to input a search query,
+ * initiate a search, and clear the search results. It integrates with Redux to dispatch search-related actions.
+ *
+ * Features:
+ * - Input field for entering a search query.
+ * - Search icon button to submit the search query.
+ * - Clear icon button to clear the current search query and results.
+ * - Submission of search query on pressing the Enter key.
+ *
+ * @param {SearchInputProps} props - The props for the component, including a placeholder for the search input.
+ * @returns React functional component.
+ */
+
 const SearchInput = ({ placeholder }: SearchInputProps) => {
   const [username, setUsername] = useState('');
   const dispatch = useAppDispatch();

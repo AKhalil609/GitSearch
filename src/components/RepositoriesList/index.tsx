@@ -16,6 +16,20 @@ interface RepositoriesListProps {
   expanded: boolean;
 }
 
+/**
+ * The `RepositoriesList` component displays a list of GitHub repositories for a specified user.
+ * It utilizes Redux for state management and performs asynchronous fetching of repositories based on scroll position.
+ *
+ * Features:
+ * - Infinite scrolling: Automatically fetches more repositories as the user scrolls down, if available.
+ * - Displays a loading message while fetching additional repositories.
+ * - Shows an error message if the fetching of repositories fails.
+ * - Conditionally renders based on the `expanded` prop and the fetch status.
+ *
+ * @param {RepositoriesListProps} props - The props for the component.
+ * @returns React functional component.
+ */
+
 const RepositoriesList = ({ userLogin, expanded }: RepositoriesListProps) => {
   const dispatch = useAppDispatch();
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -34,6 +48,7 @@ const RepositoriesList = ({ userLogin, expanded }: RepositoriesListProps) => {
   );
   const [page, setPage] = useState(1);
 
+  // Effect to handle infinite scrolling and fetching more repositories.
   useEffect(() => {
     const handleScroll = () => {
       const wrapper = wrapperRef.current;
