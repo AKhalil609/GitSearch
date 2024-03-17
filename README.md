@@ -17,6 +17,14 @@ This project uses two official Vite plugins for React development:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md): Utilizes Babel for Fast Refresh.
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc): Uses SWC for Fast Refresh.
 
+## Environment Setup
+
+Before running the project, you must create a .env file at the root of your project directory.
+
+```js
+VITE_BASE_URL=https://api.github.com/
+```
+
 ## Getting Started
 
 Follow these steps to set up and run the project:
@@ -45,6 +53,32 @@ Open http://localhost:5173 in your browser to see the application.
 
 ```bash
 npm run build
+```
+
+5. **Start the Production Preview**
+
+```bash
+npm run preview
+```
+
+## Building the Docker Image
+
+### Prerequisites
+
+Ensure you have Docker installed on your system. You can download it from [Docker's official website](https://www.docker.com/get-started/).
+
+1. Open a terminal window and navigate to the root directory of the application.
+
+2. Build the Docker image by running the following command. Replace your-app-name with a name for your Docker image:
+
+```bash
+docker build -t your-app-name:latest .
+```
+
+3. Running the Container:
+
+```bash
+docker run -p 8080:8080 --env-file .env your-app-name:latest
 ```
 
 ## Project Structure Overview

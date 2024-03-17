@@ -28,7 +28,7 @@ export const UserCard = memo(({ user }: UserCardProps) => {
       dispatch(getRepositories({ username: user.login }));
     }
     setExpanded((prevExpanded) => !prevExpanded);
-  }, [dispatch, expanded, user.login]);
+  }, [dispatch, expanded, user.login, repositories.length]);
 
   return (
     <CardWrapper>
