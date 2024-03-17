@@ -4,7 +4,7 @@ import userSearchReducer, {
 import { searchUsers } from '../userSearch/thunks';
 import { Status, type User } from '../types';
 import { initialState } from '../userSearch/initialState';
-import { RootState } from '../../app/store';
+import type { RootState } from '../../app/store';
 
 describe('userSearchSlice', () => {
   it('should return the initial state', () => {
@@ -50,7 +50,7 @@ describe('userSearchSlice', () => {
   it('handles searchUsers.pending action', () => {
     const action = { type: searchUsers.pending.type };
     const state = userSearchReducer(initialState, action);
-    expect(state).toEqual({ ...initialState, status: 'loading' });
+    expect(state).toEqual({ ...initialState, status: Status.Loading });
   });
 
   it('handles searchUsers.fulfilled action', () => {
@@ -59,7 +59,7 @@ describe('userSearchSlice', () => {
     const state = userSearchReducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
-      status: 'succeeded',
+      status: Status.Success,
       users: users,
     });
   });
@@ -71,6 +71,10 @@ describe('userSearchSlice', () => {
       error: { message: error },
     };
     const state = userSearchReducer(initialState, action);
-    expect(state).toEqual({ ...initialState, status: 'failed', error: error });
+    expect(state).toEqual({
+      ...initialState,
+      status: Status.Failed,
+      error: error,
+    });
   });
 });

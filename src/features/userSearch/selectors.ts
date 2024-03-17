@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../../app/store';
+import type { RootState } from '../../app/store';
+import { Status } from '../types';
 
 const getUserSearchState = (state: RootState) => state.userSearch;
 
@@ -20,5 +21,5 @@ export const selectUsersError = createSelector(
 
 export const selectUsersLoading = createSelector(
   [selectUsersStatus],
-  (status) => status === 'loading'
+  (status) => status === Status.Loading
 );

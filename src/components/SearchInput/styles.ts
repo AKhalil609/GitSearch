@@ -33,26 +33,26 @@ export const StyledInput = styled.input`
   border-radius: 50px;
   box-sizing: border-box;
   padding-right: 70px;
-  background-color: #323d4a;
+  background-color: var(--tertiary-bg-color);
   color: #cdd6e1;
 
   &::placeholder {
-    color: #6b7f98;
+    color: var(--quaternary-bg-color);
     opacity: 1;
   }
 
   &::-webkit-input-placeholder {
-    color: #6b7f98;
+    color: var(--quaternary-bg-color);
   }
   &::-moz-placeholder {
-    color: #6b7f98;
+    color: var(--quaternary-bg-color);
     opacity: 1;
   }
   &:-ms-input-placeholder {
-    color: #6b7f98;
+    color: var(--quaternary-bg-color);
   }
   &:-moz-placeholder {
-    color: #6b7f98;
+    color: var(--quaternary-bg-color);
     opacity: 1;
   }
 `;
@@ -83,7 +83,7 @@ export const ClearIconContainer = styled.button`
   top: 50%;
   width: 20px;
   height: 20px;
-  background: #26fbd4;
+  background: var(--primary-btn-color);
   padding: 26px;
   border-radius: 40px;
   margin-right: 8px;

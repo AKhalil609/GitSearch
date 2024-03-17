@@ -13,7 +13,7 @@ jest.mock('../../app/hooks', () => ({
   useAppSelector: jest.fn(),
 }));
 
-fdescribe('SearchInput Component', () => {
+describe('SearchInput Component', () => {
   const placeholderText = 'Search users...';
   const mockDispatch = jest.fn();
 

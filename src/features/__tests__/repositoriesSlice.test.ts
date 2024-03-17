@@ -22,7 +22,7 @@ describe('repositories slice', () => {
     store.dispatch({
       type: getRepositories.pending.type,
       meta: {
-        arg: username,
+        arg: { username },
         requestId: 'requestId',
         requestStatus: 'pending',
       },
@@ -79,7 +79,7 @@ describe('repositories slice', () => {
     const errorObj = new Error(error);
 
     store.dispatch(
-      getRepositories.rejected(errorObj, requestId, username, undefined, {
+      getRepositories.rejected(errorObj, requestId, { username }, undefined, {
         arg: username,
         requestId,
         requestStatus: 'rejected',

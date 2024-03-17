@@ -1,7 +1,7 @@
-import type { UserSearchState } from '../types';
+import { Status, type UserSearchState } from '../types';
 
 export const initialState: UserSearchState = {
   users: [],
-  status: 'idle',
+  status: Status.Idle,
   error: null,
 };

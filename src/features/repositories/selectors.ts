@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../../app/store';
+import type { RootState } from '../../app/store';
 import { Status } from '../types';
 
 const DEFAULT_REPOSITORIES_STATE = {
@@ -24,6 +24,11 @@ export const selectUserRepositoriesStatus = createSelector(
 export const selectUserRepositoriesLoading = createSelector(
   [selectUserRepositoriesStatus],
   (status) => status === Status.Loading
+);
+
+export const selectUserRepositoriesMaxPage = createSelector(
+  [getRepositoriesState],
+  (repositoriesState) => repositoriesState.maxPage
 );
 
 export const selectUserRepositoriesError = createSelector(

@@ -11,26 +11,9 @@ interface SVGProps {
   height: string;
 }
 
-export const CardsContainer = styled.div`
-  width: 100%;
-  display: flex;
-  grid-gap: 8px;
-  padding: 20px;
-  flex-wrap: wrap;
-  gap: 8px;
-  box-sizing: border-box;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
 export const CardTest = styled.div<CardProps>`
   flex-grow: 1;
-  background: #323d4a;
+  background: var(--tertiary-bg-color);
   color: rgba(205, 214, 225, 1);
   font-size: 20px;
   font-weight: 600;
@@ -43,14 +26,15 @@ export const CardTest = styled.div<CardProps>`
   padding: 12px;
   display: flex;
   align-items: start;
-  min-width: 360px;
+  min-width: 330px;
   transition: height 0.2s ease-out;
 
   flex-direction: column;
   height: ${(props) => (props.$expanded ? '225px' : '45px')};
   max-height: 225px;
   @media (max-width: 768px) {
-    height: ${(props) => (props.$expanded ? '600px' : '45px')};
+    height: ${(props) => (props.$expanded ? 'fit-content' : '45px')};
+    min-height: ${(props) => (props.$expanded ? 'fit-content' : '45px')};
     max-height: 600px;
   }
 `;
@@ -77,6 +61,11 @@ export const CardWrapper = styled.div`
   @media (max-width: 768px) {
     height: auto;
     min-width: 100%;
+    max-width: 360px;
+  }
+
+  @media (max-width: 420px) {
+    max-width: 330px;
   }
 `;
 

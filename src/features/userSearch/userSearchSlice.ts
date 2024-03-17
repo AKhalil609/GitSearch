@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { User } from '../types';
+import { Status, type User } from '../types';
 import { initialState } from './initialState';
 import { searchUsers } from './thunks';
 
@@ -9,24 +9,24 @@ const userSearchSlice = createSlice({
   reducers: {
     clearSearchResults: (state) => {
       state.users = [];
-      state.status = 'idle';
+      state.status = Status.Idle;
       state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(searchUsers.pending, (state) => {
-        state.status = 'loading';
+        state.status = Status.Loading;
       })
       .addCase(
         searchUsers.fulfilled,
         (state, action: PayloadAction<User[]>) => {
-          state.status = 'succeeded';
+          state.status = Status.Success;
           state.users = action.payload;
         }
       )
       .addCase(searchUsers.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = Status.Failed;
         state.error = action.error.message || 'Something went wrong';
       });
   },

@@ -1,4 +1,4 @@
-import { RootState } from '../../app/store';
+import type { RootState } from '../../app/store';
 import { Status } from '../types';
 import {
   selectUsers,
@@ -12,7 +12,7 @@ const mockRootState: RootState = {
     users: [
       { id: 1, login: 'johndoe', avatar_url: 'http://example.com/avatar.jpg' },
     ],
-    status: 'loading',
+    status: Status.Loading,
     error: 'An error occurred',
   },
   repositories: {
@@ -40,7 +40,7 @@ describe('UserSearch Selectors', () => {
 
   test('selectUsersStatus returns the current status of the user search', () => {
     const status = selectUsersStatus(mockRootState);
-    expect(status).toEqual('loading');
+    expect(status).toEqual(Status.Loading);
   });
 
   test('selectUsersError returns the current error of the user search', () => {

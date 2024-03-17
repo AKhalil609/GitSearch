@@ -10,7 +10,7 @@ const repositoriesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getRepositories.pending, (state, action) => {
-        const { arg: username } = action.meta;
+        const { username } = action.meta.arg;
         if (!state[username]) {
           state[username] = {
             repositories: [],
@@ -28,9 +28,10 @@ const repositoriesSlice = createSlice({
           action: PayloadAction<{
             username: string;
             repositories: Repository[];
+            page: number;
           }>
         ) => {
-          const { username, repositories } = action.payload;
+          const { username, repositories, page } = action.payload;
           if (!state[username]) {
             state[username] = {
               repositories: [],
@@ -38,12 +39,23 @@ const repositoriesSlice = createSlice({
               error: null,
             };
           }
-          state[username].repositories = repositories;
+          if (repositories.length === 0) {
+            state[username].repositories = [
+              ...state[username].repositories,
+              ...repositories,
+            ];
+            state[username].maxPage = page;
+          }
+
+          state[username].repositories = [
+            ...state[username].repositories,
+            ...repositories,
+          ];
           state[username].status = Status.Success;
         }
       )
       .addCase(getRepositories.rejected, (state, action) => {
-        const { arg: username } = action.meta;
+        const { username } = action.meta.arg;
         const error = action.error.message;
 
         if (!state[username]) {

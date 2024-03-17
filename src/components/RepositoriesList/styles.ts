@@ -17,6 +17,7 @@ export const RepoTitle = styled.h4`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  max-width: 82%;
 `;
 export const StarGazersHolder = styled.div`
   display: flex;

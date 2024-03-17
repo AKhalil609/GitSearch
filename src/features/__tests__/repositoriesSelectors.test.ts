@@ -5,13 +5,13 @@ import {
   selectUserRepositoriesLoading,
   selectUserRepositoriesError,
 } from '../repositories/selectors';
-import { RootState } from '../../app/store';
+import type { RootState } from '../../app/store';
 
 describe('Repository Selectors', () => {
   const mockState: RootState = {
     userSearch: {
       users: [],
-      status: 'idle',
+      status: Status.Idle,
       error: null,
     },
     repositories: {

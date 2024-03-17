@@ -18,12 +18,8 @@ export interface UserRepositories {
     repositories: Repository[];
     status: Status.Idle | Status.Loading | Status.Success | Status.Failed;
     error: string | null;
+    maxPage?: number;
   };
-}
-
-export interface rejectedPayload {
-  username: string;
-  error: string;
 }
 
 export interface User {
@@ -34,6 +30,17 @@ export interface User {
 
 export interface UserSearchState {
   users: User[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: Status.Idle | Status.Loading | Status.Success | Status.Failed;
   error: string | null;
+}
+
+export interface SuccessPayload {
+  username: string;
+  repositories: Repository[];
+  page: number;
+}
+
+export interface ErrorPayload {
+  username: string;
+  error: string;
 }

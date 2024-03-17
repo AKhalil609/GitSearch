@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   CardWrapper,
   CardTest,
@@ -10,7 +10,8 @@ import {
 import Angle from '../../assets/angle.svg';
 import type { User } from '../../features/types';
 import { getRepositories } from '../../features/repositories/thunks';
-import RepositoriesList from '../RepositoryList';
+import RepositoriesList from '../RepositoriesList';
+import { selectUserRepositories } from '../../features/repositories/selectors';
 
 interface UserCardProps {
   user: User;
@@ -19,10 +20,12 @@ interface UserCardProps {
 export const UserCard = memo(({ user }: UserCardProps) => {
   const [expanded, setExpanded] = useState(false);
   const dispatch = useAppDispatch();
-
+  const repositories = useAppSelector((state) =>
+    selectUserRepositories(state, user.login)
+  );
   const handleClick = useCallback(() => {
-    if (!expanded) {
-      dispatch(getRepositories(user.login));
+    if (!expanded && !repositories.length) {
+      dispatch(getRepositories({ username: user.login }));
     }
     setExpanded((prevExpanded) => !prevExpanded);
   }, [dispatch, expanded, user.login]);
